@@ -27,24 +27,24 @@ const course = useCourse();
 const route = useRoute();
 
 definePageMeta({
-	validate({params}) {
+	middleware({params}, _from) {
 		const course = useCourse()
 		const chapter = course.chapters.find(chapter => chapter.slug === params.chapterSlug)
 
 		if (!chapter) {
-			throw createError({
+			return abortNavigation(createError({
 				statusCode: 404,
 				message: 'Chapter not found'
-			})
+			}))
 		}
 
 		const lesson = chapter.lessons.find(lesson => lesson.slug === params.lessonSlug)
 
 		if (!lesson) {
-			throw createError({
+			return abortNavigation(createError({
 				statusCode: 404,
 				message: 'Lesson not found'
-			})
+			}))
 		}
 
 		return true
