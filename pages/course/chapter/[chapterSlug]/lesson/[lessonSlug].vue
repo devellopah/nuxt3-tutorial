@@ -27,28 +27,34 @@ const course = useCourse();
 const route = useRoute();
 
 definePageMeta({
-	middleware({params}, _from) {
-		const course = useCourse()
-		const chapter = course.chapters.find(chapter => chapter.slug === params.chapterSlug)
+	middleware: [
+		function ({ params }, _from) {
+			const course = useCourse()
+			const chapter = course.chapters.find(chapter => chapter.slug === params.chapterSlug)
 
-		if (!chapter) {
-			return abortNavigation(createError({
-				statusCode: 404,
-				message: 'Chapter not found'
-			}))
+			if (!chapter) {
+				return abortNavigation(createError({
+					statusCode: 404,
+					message: 'Chapter not found'
+				}))
+			}
+
+			const lesson = chapter.lessons.find(lesson => lesson.slug === params.lessonSlug)
+
+			if (!lesson) {
+				return abortNavigation(createError({
+					statusCode: 404,
+					message: 'Lesson not found'
+				}))
+			}
+		},
+		function(to, _from) {
+			if (to.params.chapterSlug === '1-chapter-1') {
+				return
+			}
+			return navigateTo('/login')
 		}
-
-		const lesson = chapter.lessons.find(lesson => lesson.slug === params.lessonSlug)
-
-		if (!lesson) {
-			return abortNavigation(createError({
-				statusCode: 404,
-				message: 'Lesson not found'
-			}))
-		}
-
-		return true
-	}
+	]
 })
 
 const chapter = computed(() => {
