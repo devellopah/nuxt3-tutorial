@@ -5,4 +5,5 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/supabase',
   ],
+  compatibilityDate: '2024-12-12',
 });
