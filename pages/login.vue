@@ -27,9 +27,12 @@ const supabase = useSupabaseClient();
 
 const login = async () => {
   // const redirectTo = `${window.location.origin}${query.redirectTo}`;
+  const redirectTo = `${window.location.origin}/course/chapter/1-chapter-1/lesson/1-introduction-to-typescript-with-vue-js-3`
+  console.log('redirectTo', redirectTo)
+
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'github',
-    // options: { redirectTo },
+    options: { redirectTo },
   });
 
   if (error) {
