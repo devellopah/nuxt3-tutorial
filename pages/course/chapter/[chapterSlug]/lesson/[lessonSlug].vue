@@ -48,7 +48,7 @@ definePageMeta({
 				}))
 			}
 		},
-		'auth'
+		// 'auth'
 	]
 })
 

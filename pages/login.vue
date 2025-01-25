@@ -11,26 +11,33 @@
 </template>
 
 <script setup lang="ts">
-const { title } = useCourse()
-// const course = await useCourse();
-// const { query } = useRoute();
-const supabase = useSupabaseClient();
-// const user = useSupabaseUser();
 
-// watchEffect(async () => {
-//   if (user.value) {
-//     await navigateTo(query.redirectTo as string, {
-//       replace: true,
-//     });
-//   }
-// });
+const firstLesson = useFirstLesson()
+const { title } = useCourse()
+const { query, redirectedFrom } = useRoute();
+const { auth } = useSupabaseClient();
+const user = useSupabaseUser();
+
+watch(
+  user,
+  () => {
+    if (user.value) {
+      // const to = (query.redirectTo as string) ?? firstLesson.path;
+      const to = redirectedFrom ?? firstLesson.path;
+      console.log('login: to', to)
+
+      return navigateTo(to, {
+        replace: true,
+      });
+    }
+  },
+  { immediate: true }
+);
 
 const login = async () => {
-  // const redirectTo = `${window.location.origin}${query.redirectTo}`;
-  const redirectTo = `${window.location.origin}/course/chapter/1-chapter-1/lesson/1-introduction-to-typescript-with-vue-js-3`
-  console.log('redirectTo', redirectTo)
+  const redirectTo = `${window.location.origin}/confirm`;
 
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { data, error } = await auth.signInWithOAuth({
     provider: 'github',
     options: { redirectTo },
   });
