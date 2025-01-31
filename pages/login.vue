@@ -12,27 +12,8 @@
 
 <script setup lang="ts">
 
-const firstLesson = useFirstLesson()
 const { title } = useCourse()
-const { query, redirectedFrom } = useRoute();
 const { auth } = useSupabaseClient();
-const user = useSupabaseUser();
-
-watch(
-  user,
-  () => {
-    if (user.value) {
-      // const to = (query.redirectTo as string) ?? firstLesson.path;
-      const to = redirectedFrom ?? firstLesson.path;
-      console.log('login: to', to)
-
-      return navigateTo(to, {
-        replace: true,
-      });
-    }
-  },
-  { immediate: true }
-);
 
 const login = async () => {
   const redirectTo = `${window.location.origin}/confirm`;
