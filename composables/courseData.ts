@@ -1,24 +1,4 @@
-// type Lesson = {
-//   title: string,
-//   slug: string,
-//   number: number,
-//   downloadUrl: string,
-//   sourceUrl?: string,
-//   videoId: number,
-//   text: string,
-// }
-
-// type Chapter = {
-//   title: string,
-//   slug: string,
-//   number: number,
-//   lessons: Lesson[]
-// }
-
-// type Course = {
-//   title: string,
-//   chapters: Chapter[],
-// }
+import type { Course } from "~/types/course"
 
 export default {
   title: 'TypeScript with Vue.js 3',
@@ -164,4 +144,4 @@ We also answer the question: “Are there any cases when you wouldn’t want to 
       ],
     },
   ],
-}
+} as Course
