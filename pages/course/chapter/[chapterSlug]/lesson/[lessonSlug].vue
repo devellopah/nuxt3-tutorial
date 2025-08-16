@@ -25,7 +25,7 @@
 <script setup>
 const course = useCourse();
 const route = useRoute();
-const lesson = await useLesson(route.params,chapterSlug, route.params.lessonSlug)
+const lesson = await useLesson(route.params.chapterSlug, route.params.lessonSlug)
 
 definePageMeta({
 	middleware: [
