@@ -14,7 +14,7 @@ export default defineNuxtConfig({
       callback: '/confirm',
       include: undefined,
       exclude: ['/course/chapter/1-chapter-1/**'],
-      cookieRedirect: true,
+      saveRedirectToCookie: true,
     }
   },
 

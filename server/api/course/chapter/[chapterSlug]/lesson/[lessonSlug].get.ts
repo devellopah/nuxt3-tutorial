@@ -1,8 +1,6 @@
 import type { Lesson, LessonWithPath, Chapter, Course } from "~/types/course"
 import course from '~/server/courseData'
 
-course as Course
-
 export default defineEventHandler((event): LessonWithPath => {
   const { chapterSlug, lessonSlug } = event.context.params as {
     chapterSlug: string,
