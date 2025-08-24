@@ -7,7 +7,7 @@ const user = useSupabaseUser();
 // const { query } = useRoute();
 const cookieName = useRuntimeConfig().public.supabase.cookieName
 const redirectPath = useCookie(`${cookieName}-redirect-path`).value
-const firstLesson = useFirstLesson();
+const firstLesson = await useFirstLesson();
 
 
 watch(user, () => {
