@@ -8,7 +8,7 @@ const lessonSelect = Prisma.validator<Prisma.LessonDefaultArgs>()({
   }
 })
 
-export type LessonOutline = Prisma.LessonGetPayload<typeof lessonSelect>
+export type LessonOutline = Prisma.LessonGetPayload<typeof lessonSelect> & { path: string }
 
 const chapterSelect = Prisma.validator<Prisma.ChapterDefaultArgs>()({
   select: {
@@ -19,7 +19,7 @@ const chapterSelect = Prisma.validator<Prisma.ChapterDefaultArgs>()({
   }
 })
 
-export type ChapterOutline = Prisma.ChapterGetPayload<typeof chapterSelect>
+export type ChapterOutline = Omit<Prisma.ChapterGetPayload<typeof chapterSelect>, 'lessons'> & { lessons: LessonOutline[] }
 
 const courseSelect = Prisma.validator<Prisma.CourseDefaultArgs>()({
   select: {
@@ -28,7 +28,7 @@ const courseSelect = Prisma.validator<Prisma.CourseDefaultArgs>()({
   }
 })
 
-export type CourseOutline = Prisma.CourseGetPayload<typeof courseSelect>
+export type CourseOutline = Omit<Prisma.CourseGetPayload<typeof courseSelect>, 'chapter'> & { chapters: ChapterOutline[] }
 
 export type LessonWithPath = Lesson & {
   path: string,
