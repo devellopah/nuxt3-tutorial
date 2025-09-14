@@ -25,10 +25,11 @@
 </template>
 
 <script setup>
-import { useCourseProgress } from '~/stores/courseProgress';
-const route = useRoute();
+import { useCourseProgress } from '~/stores/courseProgress'
+const route = useRoute()
 const { chapterSlug, lessonSlug } = route.params
-const course = await useCourse();
+const course = await useCourse()
+const user = useSupabaseUser()
 const lesson = await useLesson(chapterSlug, lessonSlug)
 const store = useCourseProgress()
 const { initialize, toggleComplete } = store

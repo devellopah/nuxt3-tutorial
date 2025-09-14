@@ -3,10 +3,8 @@ import { defineStore } from 'pinia'
 export const useCourseProgress = defineStore(
   'courseProgress',
   () => {
-    const progress = useLocalStorage(
-      'progress',
-      {}
-    )
+    // const progress = useLocalStorage<any>('progress', {})
+    const progress = ref<any>({})
     const initialized = ref(false)
     async function initialize() {
       if (initialized.value) return
@@ -26,9 +24,29 @@ export const useCourseProgress = defineStore(
       }
 
       const currentProgress = progress.value[chapter]?.[lesson]
+
+      // Optimistic UI update
       progress.value[chapter] = {
         ...progress.value[chapter],
         [lesson]: !currentProgress
+      }
+
+      try {
+        await $fetch(
+          `/api/course/chapter/${chapter}/lesson/${lesson}/progress`,
+          {
+            method: 'POST',
+            body: {
+              completed: !currentProgress,
+            },
+          }
+        )
+      } catch (error) {
+        // Optimistic UI update canceling
+        progress.value[chapter] = {
+          ...progress.value[chapter],
+          [lesson]: currentProgress
+        }
       }
     }
 
