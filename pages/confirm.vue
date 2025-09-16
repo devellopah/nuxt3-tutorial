@@ -15,7 +15,7 @@ watch(user, () => {
       // Clear cookie
       useCookie(`${cookieName}-redirect-path`).value = null
       // Redirect to path
-      return navigateTo(redirectPath || firstLesson.path);
+      return navigateTo(redirectPath || firstLesson.value.path);
   }
 }, { immediate: true })
 
