@@ -34,5 +34,13 @@ export type LessonWithPath = Lesson & {
   path: string,
 }
 
+export type ChapterProgress = {
+  [key: string]: boolean;
+}
+
+export type CourseProgress = {
+  [key: string]: ChapterProgress;
+}
+
 // Export the selectors for use in server code
 export { lessonSelect, chapterSelect, courseSelect }

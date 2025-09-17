@@ -63,8 +63,10 @@ definePageMeta({
 })
 
 const isCompleted = computed(() => {
-	return store.progress?.[chapterSlug]?.[lessonSlug] || 0
+	return store.progress?.[chapterSlug]?.[lessonSlug] || false
 })
+
+console.log('isCompleted', isCompleted.value)
 
 const chapter = computed(() => {
 	return course.value.chapters.find(
