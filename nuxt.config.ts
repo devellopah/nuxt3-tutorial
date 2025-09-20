@@ -20,6 +20,11 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    resolve: {
+      alias: {
+        ".prisma/client/index-browser": "./node_modules/.prisma/client/index-browser.js",
+      },
+    },
     plugins: [
       // Only include devtools plugin in development
       ...(process.env.NODE_ENV === 'development' ? [devtoolsJson()] : []),
