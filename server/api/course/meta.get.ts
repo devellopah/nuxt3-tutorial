@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import { courseSelect, type CourseOutlineServer, type ChapterOutlineServer, type LessonOutlineServer } from "~/types/course";
+import { courseSelect, type CourseOutline } from "~/types/course";
 
 const prisma = new PrismaClient()
 
 export default defineEventHandler(
-  async (): Promise<CourseOutlineServer> => {
+  async (): Promise<CourseOutline> => {
     const outline = await prisma.course.findFirst(courseSelect)
 
     if (!outline) {
